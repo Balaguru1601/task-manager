@@ -11,7 +11,7 @@ export default defineConfig({
 		"process.env": {
 			REACT_APP_SECRET: "CONCERTBOOKINGAPP",
 			REACT_APP_EXPIRESIN: "10h",
-			REACT_APP_BACKEND_URL: "http://localhost:5000",
+			REACT_APP_BACKEND_URL: "https://task-manager-three-tau.vercel.app/",
 		},
 	},
 });
