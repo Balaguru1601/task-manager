@@ -21,7 +21,7 @@ const sessionConfig = {
 	saveUninitialized: false,
 	cookie: {
 		httpOnly: true,
-		// secure: true,
+		secure: true,
 		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
 		maxAge: 1000 * 60 * 60 * 24 * 7,
 	},
@@ -40,10 +40,7 @@ mongoose
 app.use(session(sessionConfig));
 
 app.use((req, res, next) => {
-	res.header(
-		"Access-Control-Allow-Origin",
-		"https://task-manager-603e0.web.app/"
-	);
+	res.header("Access-Control-Allow-Origin", "*");
 	res.header(
 		"Access-Control-Allow-Headers",
 		"Origin, X-Requested-With, Content-Type, Accept"
