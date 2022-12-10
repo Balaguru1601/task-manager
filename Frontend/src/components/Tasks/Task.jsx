@@ -38,7 +38,6 @@ const Task = (props) => {
 	};
 
 	const deleteTask = async () => {
-		console.log(task);
 		const response = await axios.post(backendUrl + "/delete", {
 			task,
 			userId,
@@ -95,8 +94,6 @@ const Task = (props) => {
 		moment(task.deadline).format("YYYY-MM-DD");
 
 	const completed = task.done;
-
-	console.log(completed, expired);
 
 	const borderColor = completed ? "#BCEAD5" : expired ? "#FF7D7D" : "";
 

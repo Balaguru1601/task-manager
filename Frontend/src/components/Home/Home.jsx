@@ -11,6 +11,8 @@ import AllTasks from "../Tasks/AllTasks";
 
 let initial = true;
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL + "/user";
+
 const Home = () => {
 	const dispatch = useDispatch();
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -62,12 +64,9 @@ const Home = () => {
 	const deleteUser = async () => {
 		try {
 			dispatch(authActions.deleteUser());
-			const response = await axios.post(
-				"http://localhost:5000/user/delete",
-				{
-					userId,
-				}
-			);
+			const response = await axios.post(backendUrl + "/delete", {
+				userId,
+			});
 			return setSnackState((prev) => ({
 				open: true,
 				message: response.data.message,

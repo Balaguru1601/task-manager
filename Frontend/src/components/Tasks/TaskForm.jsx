@@ -76,8 +76,6 @@ const TaskForm = (props) => {
 			return;
 		}
 
-		console.log(newTask);
-
 		const url =
 			props.type === "new"
 				? backendUrl + "/tasks/add"
@@ -89,7 +87,6 @@ const TaskForm = (props) => {
 		});
 		if (response.status !== 200) return setError(response.data.message);
 		props.setTasks(response.data.tasks);
-		console.log(response.data);
 		if (props.type === "new") return props.setAddTask(false);
 		return props.setToNormal("normal");
 	};

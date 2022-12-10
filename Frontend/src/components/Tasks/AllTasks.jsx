@@ -60,8 +60,6 @@ const AllTasks = () => {
 		getData();
 	}, []);
 
-	console.log(tasks);
-
 	return (
 		<Box
 			sx={{
