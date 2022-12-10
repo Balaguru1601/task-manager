@@ -42,6 +42,10 @@ app.use(session(sessionConfig));
 app.use("/user", userRoutes);
 app.use("/tasks", taskRoutes);
 
+app.get("/", (req, res, next) => {
+	res.send("hello there!");
+});
+
 app.all("*", (req, res, next) => {
 	next(new ExpressError("Page not found", 404));
 });
