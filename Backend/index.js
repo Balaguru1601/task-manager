@@ -12,6 +12,8 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
+const db_url = process.env.DB_URL;
+
 const sessionConfig = {
 	name: "session",
 	secret: "secret",
@@ -26,7 +28,7 @@ const sessionConfig = {
 };
 
 mongoose
-	.connect("mongodb://localhost:27017/assignment")
+	.connect(db_url || "mongodb://localhost:27017/assignment")
 	.then(() => {
 		console.log("MONGO CONNECTION OPEN!!!");
 	})
