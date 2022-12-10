@@ -40,11 +40,11 @@ mongoose
 app.use(session(sessionConfig));
 
 app.use((req, res, next) => {
-	response.header(
+	res.header(
 		"Access-Control-Allow-Origin",
 		"https://task-manager-603e0.web.app/"
 	);
-	response.header(
+	res.header(
 		"Access-Control-Allow-Headers",
 		"Origin, X-Requested-With, Content-Type, Accept"
 	);
