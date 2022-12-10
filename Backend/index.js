@@ -7,8 +7,10 @@ const ExpressError = require("./Utilities/ExpressError");
 const userRoutes = require("./Routes/User");
 const taskRoutes = require("./Routes/Task");
 require("dotenv").config();
+const cors = require("cors");
 
 app.use(express.json());
+app.use(cors());
 
 const db_url = process.env.DB_URL;
 
@@ -36,6 +38,18 @@ mongoose
 	});
 
 app.use(session(sessionConfig));
+
+app.use((req, res, next) => {
+	response.header(
+		"Access-Control-Allow-Origin",
+		"https://task-manager-603e0.web.app/"
+	);
+	response.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
+	next();
+});
 
 app.use("/user", userRoutes);
 app.use("/tasks", taskRoutes);
