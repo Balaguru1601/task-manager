@@ -11,7 +11,7 @@ import AllTasks from "../Tasks/AllTasks";
 
 let initial = true;
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL + "/user";
+const backendUrl = import.meta.env.VITE_BACKEND_URL + "/user";
 
 const Home = () => {
 	const dispatch = useDispatch();

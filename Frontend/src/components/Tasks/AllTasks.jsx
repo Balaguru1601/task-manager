@@ -9,7 +9,7 @@ import Task from "./Task";
 import TaskForm from "./TaskForm";
 import classes from "./Tasks.module.css";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL + "/tasks";
+const backendUrl = import.meta.env.VITE_BACKEND_URL + "/tasks";
 
 const AllTasks = () => {
 	const [addTask, setAddTask] = useState(false);

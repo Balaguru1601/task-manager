@@ -9,7 +9,7 @@ const initialAuthState = {
 	expiresIn: 0,
 };
 
-const base_url = process.env.REACT_APP_BACKEND_URL + "/user";
+const base_url = import.meta.env.VITE_BACKEND_URL + "/user";
 
 const AuthSlice = createSlice({
 	name: "Authentication",

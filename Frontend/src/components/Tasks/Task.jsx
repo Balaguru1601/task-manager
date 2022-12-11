@@ -16,7 +16,7 @@ import { useState } from "react";
 import CustomSnackbar from "../UI/CustomSnackbar";
 import moment from "moment";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL + "/tasks";
+const backendUrl = import.meta.env.VITE_BACKEND_URL + "/tasks";
 
 const Task = (props) => {
 	const [viewType, setViewType] = useState("normal");

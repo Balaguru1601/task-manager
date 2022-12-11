@@ -19,7 +19,7 @@ import Error from "../UI/Typography/Error";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/AuthStore";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const SignUpForm = (props) => {
 	const dispatch = useDispatch();

@@ -13,7 +13,7 @@ import CustomFormControl from "../UI/Forms/CustomFormControl";
 import Error from "../UI/Typography/Error";
 import classes from "./Tasks.module.css";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const TaskForm = (props) => {
 	const userId = useSelector((state) => state.auth.userId);
