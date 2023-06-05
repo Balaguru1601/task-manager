@@ -20,6 +20,31 @@ export const validatePassword = (password) => {
 	};
 };
 
+export const validateUserName = (value) => {
+	if (typeof value === "string") {
+		const regExp = /^[A-Za-z][A-Za-z0-9_]{3,29}$/;
+		const validity = regExp.test(value.trim());
+		if (value.trim() === "")
+			return {
+				validity: false,
+				message: "Field is required",
+			};
+		else if (!validity)
+			return {
+				validity: false,
+				message: "Should contain characters followed by numbers",
+			};
+		return {
+			validity: true,
+			message: "Looks good!",
+		};
+	}
+	return {
+		validity: false,
+		message: "Only string values allowed",
+	};
+};
+
 export const validateText = (value) => {
 	if (!value.trim())
 		return {

@@ -10,7 +10,7 @@ import { useState } from "react";
 import {
 	validateEmail,
 	validatePassword,
-	validateText,
+	validateUserName,
 } from "../../Utilities/FormValidationFunctions";
 import useInput from "../../Hooks/use-input";
 import CustomFormControl from "../UI/Forms/CustomFormControl";
@@ -25,7 +25,7 @@ const SignUpForm = (props) => {
 	const dispatch = useDispatch();
 	const userField = useInput(
 		{ type: "text", label: "Username", name: "username" },
-		validateText
+		validateUserName
 	);
 	const passwordField = useInput(
 		{
