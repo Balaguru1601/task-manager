@@ -17,6 +17,7 @@ import axios from "axios";
 import Error from "../UI/Typography/Error";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/AuthStore";
+import CustomLoader from "../UI/CustomLoader";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -40,6 +41,7 @@ const LoginForm = (props) => {
 
 	const [showPassword, setShowPassword] = useState(false);
 	const [loginError, setLoginError] = useState(null);
+	const [loading, setLoading] = useState(false);
 
 	const handleClickShowPassword = () => {
 		setShowPassword((prev) => !prev);
@@ -50,6 +52,7 @@ const LoginForm = (props) => {
 	const loginUser = async (event) => {
 		try {
 			event.preventDefault();
+			setLoading(true);
 			const response = await axios.post(backendUrl + "/user/login", {
 				username: userField.properties.value,
 				password: passwordField.properties.value,
@@ -66,6 +69,7 @@ const LoginForm = (props) => {
 		} catch (error) {
 			setLoginError(error.response.data.message);
 		}
+		setLoading(false);
 	};
 
 	return (
@@ -74,7 +78,7 @@ const LoginForm = (props) => {
 				className={classes.cardMedia}
 				component="img"
 				image="/assets/signUp.gif"
-				alt="green iguana"
+				alt="signup.gif"
 			/>
 			<CardContent>
 				{loginError && <Error message={loginError} />}
@@ -125,6 +129,7 @@ const LoginForm = (props) => {
 					Not a member? Signup
 				</Button>
 			</CardActions>
+			{loading && <CustomLoader />}
 		</Card>
 	);
 };

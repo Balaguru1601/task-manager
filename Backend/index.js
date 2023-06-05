@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 const db_url = process.env.DB_URL;
+const client_url = process.env.CLEIENT_URL;
 
 const sessionConfig = {
 	name: "session",
@@ -40,7 +41,7 @@ mongoose
 app.use(session(sessionConfig));
 
 app.use((req, res, next) => {
-	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Origin", client_url);
 	res.header(
 		"Access-Control-Allow-Headers",
 		"Origin, X-Requested-With, Content-Type, Accept"

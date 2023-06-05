@@ -12,11 +12,13 @@ import {
 import CustomFormControl from "../UI/Forms/CustomFormControl";
 import Error from "../UI/Typography/Error";
 import classes from "./Tasks.module.css";
+import CustomLoader from "../UI/CustomLoader";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const TaskForm = (props) => {
 	const userId = useSelector((state) => state.auth.userId);
+	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const task = props.task;
 
@@ -75,7 +77,7 @@ const TaskForm = (props) => {
 			deadlineField.properties.onBlur();
 			return;
 		}
-
+		setLoading(true);
 		const url =
 			props.type === "new"
 				? backendUrl + "/tasks/add"
@@ -85,6 +87,7 @@ const TaskForm = (props) => {
 			task: newTask,
 			userId,
 		});
+		setLoading(false);
 		if (response.status !== 200) return setError(response.data.message);
 		props.setTasks(response.data.tasks);
 		if (props.type === "new") return props.setAddTask(false);
@@ -107,6 +110,7 @@ const TaskForm = (props) => {
 					Add
 				</Button>
 			</form>
+			{loading && <CustomLoader />}
 		</Box>
 	);
 };

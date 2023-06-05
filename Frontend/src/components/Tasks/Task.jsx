@@ -15,11 +15,13 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import CustomSnackbar from "../UI/CustomSnackbar";
 import moment from "moment";
+import CustomLoader from "../UI/CustomLoader";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL + "/tasks";
 
 const Task = (props) => {
 	const [viewType, setViewType] = useState("normal");
+	const [loading, setLoading] = useState(false);
 	const task = props.task;
 	const setTasks = props.setTasks;
 	const userId = useSelector((state) => state.auth.userId);
@@ -38,10 +40,12 @@ const Task = (props) => {
 	};
 
 	const deleteTask = async () => {
+		setLoading(true);
 		const response = await axios.post(backendUrl + "/delete", {
 			task,
 			userId,
 		});
+		setLoading(false);
 		if (response.status !== 200)
 			return setSnackState({
 				open: true,
@@ -68,6 +72,7 @@ const Task = (props) => {
 	const month = moment(task.deadline).format("MMM");
 
 	const markAsComplete = async () => {
+		setLoading(true);
 		const response = await axios.post(backendUrl + "/update", {
 			task: {
 				...task,
@@ -75,6 +80,7 @@ const Task = (props) => {
 			},
 			userId,
 		});
+		setLoading(false);
 		if (response.status !== 200)
 			return setSnackState({
 				open: true,
@@ -165,6 +171,7 @@ const Task = (props) => {
 					setToNormal={setToNormal}
 				/>
 			)}
+			{loading && <CustomLoader />}
 		</Paper>
 	);
 };

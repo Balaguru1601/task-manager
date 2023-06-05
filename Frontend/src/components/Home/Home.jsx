@@ -8,6 +8,7 @@ import { Button, Snackbar } from "@mui/material";
 import CustomSnackbar from "../UI/CustomSnackbar";
 import axios from "axios";
 import AllTasks from "../Tasks/AllTasks";
+import CustomLoader from "../UI/CustomLoader";
 
 let initial = true;
 
@@ -22,6 +23,7 @@ const Home = () => {
 		message: null,
 		severity: "success",
 	});
+	const [loading, setLoading] = useState(false);
 
 	const handleClick = () => {
 		setSnackState((prev) => ({
@@ -64,15 +66,18 @@ const Home = () => {
 	const deleteUser = async () => {
 		try {
 			dispatch(authActions.deleteUser());
+			setLoading(true);
 			const response = await axios.post(backendUrl + "/delete", {
 				userId,
 			});
+			setLoading(false);
 			return setSnackState((prev) => ({
 				open: true,
 				message: response.data.message,
 				severity: "success",
 			}));
 		} catch (error) {
+			setLoading(false);
 			return setSnackState((prev) => ({
 				open: true,
 				message: error.message,
@@ -94,12 +99,32 @@ const Home = () => {
 			)}
 			{isLoggedIn && (
 				<div>
-					<Button onClick={logoutUser}>Logout</Button>
-					<Button onClick={deleteUser}>Delete account</Button>
+					<Button
+						onClick={logoutUser}
+						sx={{
+							fontSize: "1rem",
+							fontWeight: "bold",
+							color: "#7cbeff",
+						}}
+					>
+						Logout
+					</Button>
+					<Button
+						sx={{
+							fontSize: "1rem",
+							fontWeight: "bold",
+							color: "#7cbeff",
+							mx: 2,
+						}}
+						onClick={deleteUser}
+					>
+						Delete account
+					</Button>
 					<AllTasks />
 				</div>
 			)}
 			<CustomSnackbar handleClose={handleClick} {...snackState} />
+			{loading && <CustomLoader />}
 		</div>
 	);
 };

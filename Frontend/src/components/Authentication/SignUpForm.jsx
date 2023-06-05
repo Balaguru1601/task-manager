@@ -18,6 +18,7 @@ import axios from "axios";
 import Error from "../UI/Typography/Error";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/AuthStore";
+import CustomLoader from "../UI/CustomLoader";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -45,6 +46,8 @@ const SignUpForm = (props) => {
 	);
 	const [showPassword, setShowPassword] = useState(false);
 	const [registrationError, setRegistrationerror] = useState(null);
+	const [loading, setLoading] = useState(false);
+
 	const formIsValid =
 		userField.validities.isValid &&
 		emailField.validities.isValid &&
@@ -58,6 +61,7 @@ const SignUpForm = (props) => {
 
 	const registerUser = async () => {
 		try {
+			setLoading(true);
 			const response = await axios.post(backendUrl + "/user/register", {
 				username: userField.properties.value,
 				email: emailField.properties.value,
@@ -76,6 +80,7 @@ const SignUpForm = (props) => {
 		} catch (error) {
 			setRegistrationerror(error.response.data.message);
 		}
+		setLoading(false);
 	};
 
 	return (
@@ -84,7 +89,7 @@ const SignUpForm = (props) => {
 				className={classes.cardMedia}
 				component="img"
 				image="/assets/signUp.gif"
-				alt="green iguana"
+				alt="Login.gif"
 			/>
 			<CardContent>
 				{registrationError && <Error message={registrationError} />}
@@ -138,6 +143,7 @@ const SignUpForm = (props) => {
 					Already a member? Login
 				</Button>
 			</CardActions>
+			{loading && <CustomLoader />}
 		</Card>
 	);
 };

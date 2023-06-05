@@ -8,12 +8,14 @@ import CustomSnackbar from "../UI/CustomSnackbar";
 import Task from "./Task";
 import TaskForm from "./TaskForm";
 import classes from "./Tasks.module.css";
+import CustomLoader from "../UI/CustomLoader";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL + "/tasks";
 
 const AllTasks = () => {
 	const [addTask, setAddTask] = useState(false);
 	const [tasks, setTasks] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const userId = useSelector((state) => state.auth.userId);
 
 	const updateTasks = (data) => setTasks(data);
@@ -40,6 +42,7 @@ const AllTasks = () => {
 
 	useEffect(() => {
 		const getData = async () => {
+			setLoading(true);
 			const response = await axios.get(backendUrl + "/all/" + userId);
 			if (response.status !== 200) {
 				setSnackState({
@@ -47,14 +50,17 @@ const AllTasks = () => {
 					message: response.data.message,
 					severity: "error",
 				});
+				setLoading(false);
 				return;
 			}
 			setTasks(response.data.tasks);
-			setSnackState({
-				open: true,
-				message: response.data.message,
-				severity: "success",
-			});
+			response.data.tasks.length > 0 &&
+				setSnackState({
+					open: true,
+					message: response.data.message,
+					severity: "success",
+				});
+			setLoading(false);
 		};
 
 		getData();
@@ -94,6 +100,7 @@ const AllTasks = () => {
 				/>
 			)}
 			<CustomSnackbar handleClose={handleClick} {...snackState} />
+			{loading && <CustomLoader />}
 		</Box>
 	);
 };
