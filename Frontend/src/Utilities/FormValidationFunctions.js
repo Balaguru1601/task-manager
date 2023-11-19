@@ -1,8 +1,7 @@
 import moment from "moment";
 
 export const validatePassword = (password) => {
-	const regExp =
-		/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+	const regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 	password = password.trim();
 	if (password.length < 8)
 		return {
