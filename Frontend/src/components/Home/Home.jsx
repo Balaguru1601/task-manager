@@ -39,8 +39,10 @@ const Home = () => {
 
 	useEffect(() => {
 		if (initial) {
+			setLoading(true);
 			dispatch(verifyToken());
 			initial = false;
+			setLoading(false);
 		}
 	}, [dispatch, isLoggedIn]);
 
@@ -88,15 +90,8 @@ const Home = () => {
 
 	return (
 		<div>
-			{!isLoggedIn && content === 0 && (
-				<SignUpForm viewLoginForm={viewLoginForm} setSnack={setSnack} />
-			)}
-			{!isLoggedIn && content === 1 && (
-				<LoginForm
-					viewSignUpForm={viewSignUpForm}
-					setSnack={setSnack}
-				/>
-			)}
+			{!isLoggedIn && content === 0 && <SignUpForm viewLoginForm={viewLoginForm} setSnack={setSnack} />}
+			{!isLoggedIn && content === 1 && <LoginForm viewSignUpForm={viewSignUpForm} setSnack={setSnack} />}
 			{isLoggedIn && (
 				<div>
 					<Button
