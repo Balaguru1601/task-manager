@@ -3,7 +3,7 @@
 A task manager application built using React and MongoDB.
 Users can register and add tasks with deadline and description.
 
-[Deployed Link](https://task-manager-603e0.web.app/)
+[Deployed Link](https://task-manager-kp9d.vercel.app/)
 
 ## Features
 
